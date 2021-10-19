@@ -21,9 +21,20 @@ const listProductById = async (id) => {
   return product;
 };
 
+const updateProducts = async (id, name, quantity) => {
+  const product = await productsModels.updateProduct(id, name, quantity);
+  return product;
+};
+
+const deleteProduct = async (id) => {
+  await productsModels.excludeProduct(id);
+};
+
 module.exports = {
   createNewProduct,
   findProductName,
   listProducts,
   listProductById,
+  updateProducts,
+  deleteProduct,
 };

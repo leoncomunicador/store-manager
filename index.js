@@ -12,7 +12,7 @@ const PORT = 3000;
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
-  response.send(); 
+  response.send();
 });
 
 app.get('/products/:id', productMiddleware.isIdValid, rescue(productsController.listProductById));
@@ -20,6 +20,14 @@ app.get('/products/:id', productMiddleware.isIdValid, rescue(productsController.
 app.get('/products', rescue(productsController.listProducts));
 
 app.post('/products', productMiddleware.validateProducts, rescue(productsController.createProduct));
+
+app.put(
+  '/products/:id',
+  productMiddleware.updateProducts,
+  rescue(productsController.updateProduct),
+);
+
+// app.delete('/products/:id', productMiddleware.validateProducts, rescue(productsController.deleteProduct));
 
 app.use(error);
 

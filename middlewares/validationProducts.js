@@ -32,7 +32,7 @@ const quantityProduct = (req, res, next) => {
   next();
 };
 
-const isProduct = (req, res, next) => {
+const isValidQuantity = (req, res, next) => {
   const { quantity } = req.body;
   if (typeof quantity === 'string') {
     return res.status(422).json({
@@ -56,10 +56,17 @@ const validateProducts = [
   productName,
   productAlreadyExists,
   quantityProduct,
-  isProduct,
+  isValidQuantity,
+];
+
+const updateProducts = [
+  productName,
+  quantityProduct,
+  isValidQuantity,
 ];
 
 module.exports = {
   validateProducts,
   isIdValid,
+  updateProducts,
 };
