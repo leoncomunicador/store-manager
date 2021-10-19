@@ -65,8 +65,13 @@ const updateProducts = [
   isValidQuantity,
 ];
 
+const deleteProduct = [
+  isIdValid,
+];
+
 module.exports = {
   validateProducts,
   isIdValid,
   updateProducts,
+  deleteProduct,
 };

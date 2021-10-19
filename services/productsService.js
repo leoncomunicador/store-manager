@@ -27,7 +27,8 @@ const updateProducts = async (id, name, quantity) => {
 };
 
 const deleteProduct = async (id) => {
-  await productsModels.excludeProduct(id);
+  const excludeProduct = await productsModels.excludeProduct(id);
+  return excludeProduct;
 };
 
 module.exports = {

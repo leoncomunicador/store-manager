@@ -27,7 +27,9 @@ app.put(
   rescue(productsController.updateProduct),
 );
 
-// app.delete('/products/:id', productMiddleware.validateProducts, rescue(productsController.deleteProduct));
+app.delete('/products/:id',
+  productMiddleware.deleteProduct,
+  rescue(productsController.deleteProduct));
 
 app.use(error);
 
