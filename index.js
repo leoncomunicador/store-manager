@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const rescue = require('express-rescue');
 
 const productsController = require('./controllers/productsController');
-const middleware = require('./middlewares');
+const { error, productMiddleware } = require('./middlewares');
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,11 +12,15 @@ const PORT = 3000;
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
-  response.send();
+  response.send(); 
 });
 
-app.post('/products', middleware.validationProducts, rescue(productsController.createProduct));
+app.get('/products/:id', productMiddleware.isIdValid, rescue(productsController.listProductById));
 
-app.use(middleware.error);
+app.get('/products', rescue(productsController.listProducts));
+
+app.post('/products', productMiddleware.validateProducts, rescue(productsController.createProduct));
+
+app.use(error);
 
 app.listen(PORT, () => console.log(`Servidor rodando na porta -> ${PORT}`));

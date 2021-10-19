@@ -1,7 +1,7 @@
 const error = require('./error');
-const validationProducts = require('./validationProducts');
+const productMiddleware = require('./validationProducts');
 
 module.exports = {
   error,
-  validationProducts,
+  productMiddleware,
 };

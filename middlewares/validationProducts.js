@@ -42,6 +42,16 @@ const isProduct = (req, res, next) => {
   next();
 };
 
+const isIdValid = (req, res, next) => {
+  const { id } = req.params;
+  if (+id.length !== 24) {
+    return res.status(422).json({
+      err: { code: 'invalid_data', message: 'Wrong id format' },
+    });
+  }
+  next();
+};
+
 const validateProducts = [
   productName,
   productAlreadyExists,
@@ -49,4 +59,7 @@ const validateProducts = [
   isProduct,
 ];
 
-module.exports = validateProducts;
+module.exports = {
+  validateProducts,
+  isIdValid,
+};

@@ -8,7 +8,7 @@ const getAllProducts = async () => { // função para buscar todos os produtos
   return products;
 };
 
-const getByIdProduct = async (id) => { // função para buscar o produto pelo Id
+const getProductById = async (id) => { // função para buscar o produto pelo Id
   if (!ObjectId.isValid(id)) return null;
 
   const db = await connect();
@@ -43,7 +43,7 @@ const findProductName = async (name) => { // função para buscar um produto pel
 
 module.exports = {
   getAllProducts,
-  getByIdProduct,
+  getProductById,
   createProduct,
   updateProduct,
   excludeProduct,
