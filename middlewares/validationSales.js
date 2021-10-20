@@ -1,3 +1,5 @@
+const salesService = require('../services/salesService');
+
 const registrationSale = (req, res, next) => {
   const { quantity } = req.body[0];
   if (quantity <= 0) {
@@ -18,9 +20,10 @@ const isValidQuantity = (req, res, next) => {
   next();
 };
 
-const isSaleIdValid = (req, res, next) => {
+const isSaleIdValid = async (req, res, next) => {
   const { id } = req.params;
-  if (+id.length !== 24) {
+  const existsSale = await salesService.listSaleById(id);
+  if (+id.length !== 24 || !existsSale) {
     return res.status(404).json({
       err: { code: 'not_found', message: 'Sale not found' },
     });
@@ -40,6 +43,24 @@ const isValidSale = (req, res, next) => {
   next();
 };
 
+const verifyExistSale = async (req, res, next) => {
+  const { id } = req.params;
+  if (!id || +id.length !== 24) {
+    return res.status(422).json({
+      err: { code: 'invalid_data', message: 'Wrong sale ID format' },
+    });
+  }
+  
+  const existsSale = await salesService.listSaleById(id);
+
+  if (!existsSale) {
+    return res.status(404).json({
+      err: { code: 'not_found', message: 'Sale not found' },
+    });
+  }
+  next();
+};
+
 const validateSales = [
   registrationSale,
   isValidQuantity,
@@ -54,4 +75,5 @@ module.exports = {
   validateSales,
   isSaleIdValid,
   updateSale,
+  verifyExistSale,
 };

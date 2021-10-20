@@ -20,9 +20,15 @@ const updateSale = async (id, itensSold) => {
   return sale;
 };
 
+const deleteSale = async (id) => {
+  const excludeSale = await salesModels.excludeOneSale(id);
+  return excludeSale;
+};
+
 module.exports = {
   newSale,
   listAllSales,
   listSaleById,
   updateSale,
+  deleteSale,
 };

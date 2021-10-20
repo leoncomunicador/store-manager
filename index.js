@@ -41,7 +41,7 @@ app.post('/sales', salesMiddleware.validateSales, rescue(salesController.createS
 
 app.put('/sales/:id', salesMiddleware.updateSale, rescue(salesController.updateSale));
 
-// app.delete('/sales/:id', null);
+app.delete('/sales/:id', salesMiddleware.verifyExistSale, rescue(salesController.deleteOneSale));
 
 app.use(error);
 

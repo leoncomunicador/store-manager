@@ -28,9 +28,17 @@ const updateSale = async (id, itensSold) => { // função que atualiza uma venda
   await db.collection('sales').updateOne({ id: ObjectId(id) }, { $set: { itensSold } });
 };
 
+const excludeOneSale = async (id) => { // função para excluir uma venda pelo id
+  if (!ObjectId.isValid(id)) return null;
+
+  const db = await connection();
+  await db.collection('sales').deleteOne({ _id: ObjectId(id) });
+};
+
 module.exports = {
   createSale,
   getAllSales,
   getSalesById,
   updateSale,
+  excludeOneSale,
 };
