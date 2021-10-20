@@ -1,3 +1,4 @@
-// const products = require('./productsRoutes');
+const products = require('./productsRoutes');
+const sales = require('./salesRoutes');
 
-// module.exports = products;
+module.exports = { products, sales };
