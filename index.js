@@ -33,13 +33,13 @@ app.delete('/products/:id',
   productMiddleware.deleteProduct,
   rescue(productsController.deleteProduct));
 
-// app.get('/sales/:id', null);
+app.get('/sales/:id', salesMiddleware.isSaleIdValid, rescue(salesController.listSalesById));
 
-// app.get('/sales', null);
+app.get('/sales', rescue(salesController.listSales));
 
 app.post('/sales', salesMiddleware.validateSales, rescue(salesController.createSale));
 
-// app.put('/sales/:id', null);
+app.put('/sales/:id', salesMiddleware.updateSale, rescue(salesController.updateSale));
 
 // app.delete('/sales/:id', null);
 
