@@ -3,7 +3,9 @@ const bodyParser = require('body-parser');
 const rescue = require('express-rescue');
 
 const productsController = require('./controllers/productsController');
-const { error, productMiddleware } = require('./middlewares');
+const salesController = require('./controllers/salesController');
+
+const { error, productMiddleware, salesMiddleware } = require('./middlewares');
 
 const app = express();
 app.use(bodyParser.json());
@@ -30,6 +32,16 @@ app.put(
 app.delete('/products/:id',
   productMiddleware.deleteProduct,
   rescue(productsController.deleteProduct));
+
+// app.get('/sales/:id', null);
+
+// app.get('/sales', null);
+
+app.post('/sales', salesMiddleware.validateSales, rescue(salesController.createSale));
+
+// app.put('/sales/:id', null);
+
+// app.delete('/sales/:id', null);
 
 app.use(error);
 
