@@ -1,3 +1,5 @@
+// Faz uma ligação entre o model e o controller
+
 const productsModels = require('../models/productsModels');
 
 const createNewProduct = async (name, quantity) => {
